@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SlidingCalendar.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom="clr-namespace:SlidingCalendar.CustomControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+
+    <StackLayout>
+        <custom:SlidingCalendar
+            x:Name="SlidingCalendar"
+            DayItem_Tapped="SlidingCalendar_DayItem_Tapped"
+            IsWeekendEnabled="True"
+            MonthSize="2,1"
+            Theme="MetalicBlueTheme" />
+
+        <Frame
+            Margin="20"
+            Padding="10"
+            BackgroundColor="Wheat"
+            BorderColor="DimGray"
+            CornerRadius="10">
+            <Label
+                x:Name="LabelSelectedDate"
+                FontSize="20"
+                HorizontalTextAlignment="Center"
+                Text="Selected Date"
+                TextColor="Black" />
+        </Frame>
+
+        <StackLayout>
+            <Button
+                Margin="20,5"
+                BackgroundColor="#0072b1"
+                Clicked="Button_Clicked"
+                CommandParameter="{x:Static custom:Themes.BlueTheme}"
+                Text="Blue Theme"
+                TextColor="White" />
+            <Button
+                Margin="20,5"
+                BackgroundColor="#08457e"
+                Clicked="Button_Clicked"
+                CommandParameter="{x:Static custom:Themes.MetalicBlueTheme}"
+                Text="Metalic Blue Theme"
+                TextColor="White" />
+
+            <Button
+                Margin="20,5"
+                BackgroundColor="#ee223e"
+                Clicked="Button_Clicked"
+                CommandParameter="{x:Static custom:Themes.RedTheme}"
+                Text="Red Theme"
+                TextColor="White" />
+
+            <Button
+                Margin="20,5"
+                BackgroundColor="#40826d"
+                Clicked="Button_Clicked"
+                CommandParameter="{x:Static custom:Themes.GreenTheme}"
+                Text="Green Theme"
+                TextColor="White" />
+
+            <Button
+                Margin="20,5"
+                BackgroundColor="#141414"
+                Clicked="Button_Clicked"
+                CommandParameter="{x:Static custom:Themes.DarkTheme}"
+                Text="Dark Theme"
+                TextColor="White" />
+        </StackLayout>
+
+
+    </StackLayout>
+
+</ContentPage>

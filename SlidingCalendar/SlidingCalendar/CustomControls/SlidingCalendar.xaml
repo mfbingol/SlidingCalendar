@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="SlidingCalendar.CustomControls.SlidingCalendar"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Color x:Key="MainBackColor">#08457e</Color>
+            <Color x:Key="SecondBackColor">#32527b</Color>
+            <Color x:Key="TextColor">White</Color>
+            <Thickness x:Key="BorderWidth">0,1,0,1</Thickness>
+            <Style x:Key="SmallLabel" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Italic" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Margin" Value="0,2,0,0" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="WidthRequest" Value="80" />
+                <Setter Property="Text" Value="Pazar" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+            <Style x:Key="BigLabel" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="WidthRequest" Value="50" />
+                <Setter Property="Text" Value="25" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+            <Style x:Key="StackDatePart" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="2" />
+                <Setter Property="Orientation" Value="Vertical" />
+                <Setter Property="BackgroundColor" Value="Transparent" />
+            </Style>
+            <Style TargetType="BoxView">
+                <Setter Property="Margin" Value="2,0" />
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="WidthRequest" Value="46" />
+                <Setter Property="BackgroundColor" Value="DodgerBlue" />
+                <Setter Property="IsVisible" Value="False" />
+            </Style>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+        <Grid
+            x:Name="Grid_Main"
+            BackgroundColor="White"
+            ColumnSpacing="0"
+            RowSpacing="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="46" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Calendar Header  -->
+            <Grid
+                x:Name="Grid_Caption"
+                Grid.Row="0"
+                Grid.ColumnSpan="3"
+                BackgroundColor="{DynamicResource SecondBackColor}"
+                ColumnSpacing="0"
+                RowSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="10" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    x:Name="Label_CaptionDate"
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    TextColor="{StaticResource TextColor}"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+                <Button
+                    Grid.Column="2"
+                    Margin="6"
+                    Padding="0"
+                    BackgroundColor="{DynamicResource MainBackColor}"
+                    Clicked="TodayButton_Clicked"
+                    CornerRadius="8"
+                    Text="BUGÜN"
+                    TextColor="{StaticResource TextColor}"
+                    WidthRequest="50" />
+            </Grid>
+
+            <!--  Calendar Sliding Area  -->
+            <ScrollView
+                x:Name="ScrollView_SlidingContainer"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Padding="0"
+                HorizontalScrollBarVisibility="Never"
+                Orientation="Horizontal"
+                VerticalScrollBarVisibility="Never">
+
+                <StackLayout
+                    x:Name="StackLayout_Container"
+                    Margin="{DynamicResource BorderWidth}"
+                    Padding="6,0,6,0"
+                    BackgroundColor="{DynamicResource MainBackColor}"
+                    BindableLayout.ItemsSource="{Binding .}"
+                    Orientation="Horizontal"
+                    Spacing="0"
+                    VerticalOptions="Fill">
+
+                    <d:BindableLayout.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>1</x:String>
+                            <x:String>2</x:String>
+                            <x:String>3</x:String>
+                        </x:Array>
+                    </d:BindableLayout.ItemsSource>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Style="{StaticResource StackDatePart}">
+                                <Label
+                                    x:Name="SmallLabel"
+                                    Style="{StaticResource SmallLabel}"
+                                    Text="{Binding ., StringFormat='{0:dddd}'}" />
+                                <Label
+                                    x:Name="BigLabel"
+                                    Style="{StaticResource BigLabel}"
+                                    Text="{Binding ., StringFormat='{0:dd}'}" />
+                                <BoxView />
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="DayPart_Tapped" />
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+
+    </ContentView.Content>
+</ContentView>

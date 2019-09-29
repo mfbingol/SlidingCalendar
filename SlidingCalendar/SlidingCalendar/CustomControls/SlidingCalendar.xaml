@@ -12,6 +12,7 @@
             <Color x:Key="SecondBackColor">#32527b</Color>
             <Color x:Key="TextColor">White</Color>
             <Thickness x:Key="BorderWidth">0,1,0,1</Thickness>
+            <x:String x:Key="Today" />
             <Style x:Key="SmallLabel" TargetType="Label">
                 <Setter Property="FontAttributes" Value="Italic" />
                 <Setter Property="FontSize" Value="14" />
@@ -83,6 +84,7 @@
                     FontAttributes="Bold"
                     FontSize="16"
                     HorizontalOptions="Start"
+                    Text="{DynamicResource Today}"
                     TextColor="{StaticResource TextColor}"
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center" />
